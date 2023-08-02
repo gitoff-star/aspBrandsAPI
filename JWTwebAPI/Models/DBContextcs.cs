@@ -8,7 +8,7 @@ namespace JWTwebAPI.Models
         {
             
         }
-        DbSet<Brands> Brands { get; set; }  
+      public  DbSet<Brands> Brands { get; set; }  
 
     }
 }
