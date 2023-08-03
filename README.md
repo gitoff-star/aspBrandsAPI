@@ -36,7 +36,7 @@ Build and run the project.<br>
 
 Test the API endpoints using a tool like Postman or Swagger.<br>
 
-###API Endpoints
+### API Endpoints
 The following API endpoints are available: <br>
 
 GET /api/brands: Get a list of all brands.<br>
@@ -48,5 +48,5 @@ Authentication and Authorization<br>
 To access the protected API endpoints, users must be authenticated and authorized. <br>
 Implement authentication using JWT (JSON Web Tokens) with the help of ASP.NET Core Identity or any other authentication provider.
 
-##Contribution <br>
+## Contribution <br>
 Contributions to this project are welcome. Feel free to open issues, submit pull requests, or suggest new features.
