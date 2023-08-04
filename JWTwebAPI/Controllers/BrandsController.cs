@@ -1,4 +1,5 @@
 ﻿using JWTwebAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,7 @@ namespace JWTwebAPI.Controllers
             _db = db;
         }
 
+        
         [HttpGet("get")]
         public async Task<ActionResult<IEnumerable<Brands>>> getBrands()
         {
@@ -30,6 +32,7 @@ namespace JWTwebAPI.Controllers
             return await _db.Brands.ToListAsync();
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<Brands>> getBrands(int id)
         {

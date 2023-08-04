@@ -55,7 +55,8 @@ if (app.Environment.IsDevelopment())
 app.UseCors("corspolicy");
 app.UseHttpsRedirection();
 // adding authentication pipeline for jwt authentication
-app.UseAuthentication();
+app.UseAuthentication();    
+app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllers();
