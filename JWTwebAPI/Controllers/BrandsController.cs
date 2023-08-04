@@ -1,4 +1,5 @@
 ﻿using JWTwebAPI.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JWTwebAPI.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class BrandsController : ControllerBase
@@ -16,7 +18,7 @@ namespace JWTwebAPI.Controllers
             _db = db;
         }
 
-        [HttpGet]
+        [HttpGet("get")]
         public async Task<ActionResult<IEnumerable<Brands>>> getBrands()
         {
             if (_db.Brands == null)
@@ -81,7 +83,7 @@ namespace JWTwebAPI.Controllers
 
             return Ok();
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
 
             public async Task<ActionResult> deleteBrand(int id){
 
