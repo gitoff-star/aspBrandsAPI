@@ -16,7 +16,7 @@ namespace JWTwebAPI.Controllers
         {
             configuration = _configuration;
         }
-        public userDTO validateUser(userDTO userDTO)
+        private userDTO validateUser(userDTO userDTO)
         {
             userDTO user = null;
             if (userDTO.username == "admin" && userDTO.password == "1234")
@@ -27,7 +27,7 @@ namespace JWTwebAPI.Controllers
             return user;
         }
 
-        public string GenerateToken(userDTO user)
+        private string GenerateToken(userDTO user)
         {
             var secuirtykey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(secuirtykey, SecurityAlgorithms.HmacSha256);
@@ -39,7 +39,7 @@ namespace JWTwebAPI.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost("login")]
         public IActionResult loginNow(userDTO user)
         {
 
