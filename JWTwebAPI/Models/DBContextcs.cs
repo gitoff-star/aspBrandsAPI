@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using dotnetJWT.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace JWTwebAPI.Models
 {
@@ -9,6 +10,8 @@ namespace JWTwebAPI.Models
             
         }
       public  DbSet<Brands> Brands { get; set; }  
+
+        public DbSet<user> Users { get; set; }
 
     }
 }

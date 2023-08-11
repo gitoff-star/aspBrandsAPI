@@ -32,7 +32,7 @@ namespace JWTwebAPI.Controllers
             return await _db.Brands.ToListAsync();
         }
 
-        [Authorize]
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<Brands>> getBrands(int id)
         {

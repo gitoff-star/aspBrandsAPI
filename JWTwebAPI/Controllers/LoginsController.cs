@@ -1,33 +1,46 @@
 ﻿using dotnetJWT.Models;
+using JWTwebAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.VisualBasic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
 namespace JWTwebAPI.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class LoginsController : ControllerBase
     {
         IConfiguration configuration;
-        public LoginsController(IConfiguration _configuration)
+        DBContextcs _db;
+        public LoginsController(DBContextcs db, IConfiguration _configuration)
         {
+            _db = db;
             configuration = _configuration;
         }
-        private userDTO validateUser(userDTO userDTO)
+
+        
+     
+        private user validateUser(user userDTO)
         {
-            userDTO user = null;
-            if (userDTO.username == "admin" && userDTO.password == "1234")
+
+
+            var LUser = _db.Users.Where(u => u.username.Equals(userDTO.username) 
+            && u.hashPassword.Equals(userDTO.hashPassword)).FirstOrDefault();
+
+            if (LUser !=null )
             {
-                user = new userDTO { username = "admin " };
+                LUser = new user { username = LUser.username };
             }
 
-            return user;
+            return LUser;
         }
 
-        private string GenerateToken(userDTO user)
+        private string GenerateToken(user user)
         {
             var secuirtykey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(secuirtykey, SecurityAlgorithms.HmacSha256);
@@ -40,7 +53,7 @@ namespace JWTwebAPI.Controllers
 
 
         [HttpPost("login")]
-        public IActionResult loginNow(userDTO user)
+        public IActionResult loginNow(user user)
         {
 
             IActionResult response = Unauthorized();
@@ -52,6 +65,26 @@ namespace JWTwebAPI.Controllers
             }
 
             return response;
+        }
+
+
+        [HttpPost("Register")]
+        public async Task<IActionResult> Register(user user)
+        {
+
+          
+
+            if (user.username != null && user.hashPassword!= null)
+            {
+                 _db.Users.Add(user);
+                await _db.SaveChangesAsync();
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+            return Ok();
         }
     }
 }
