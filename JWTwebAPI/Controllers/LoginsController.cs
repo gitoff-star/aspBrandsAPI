@@ -81,7 +81,7 @@ namespace JWTwebAPI.Controllers
             }
             else
             {
-                return BadRequest();
+                return NotFound();
             }
 
             return Ok();
